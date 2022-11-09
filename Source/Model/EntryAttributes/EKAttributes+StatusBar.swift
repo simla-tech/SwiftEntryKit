@@ -19,6 +19,9 @@ public extension EKAttributes {
         /** Ignored. Status bar is ignored by entries with this apperance value*/
         case ignored
         
+        /** Current. With current status bar style*/
+        case current
+        
         /** Hidden. Doesn't apply to iPhone X */
         case hidden
         
@@ -37,6 +40,12 @@ public extension EKAttributes {
          Note: See *Appearance* */
         public var appearance: Appearance {
             switch self {
+            case .current:
+                if #available(iOS 13, *), let currentStyle = UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarStyle {
+                    return (true, currentStyle)
+                } else {
+                    return (true, .default)
+                }
             case .dark:
                 if #available(iOS 13, *) {
                     return (true, .darkContent)
