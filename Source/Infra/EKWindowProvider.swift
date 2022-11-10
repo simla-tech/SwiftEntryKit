@@ -159,7 +159,9 @@ final class EKWindowProvider: EntryPresenterDelegate {
         switch rollbackWindow! {
         case .main:
             if let mainRollbackWindow = mainRollbackWindow {
-                mainRollbackWindow.makeKeyAndVisible()
+                if mainRollbackWindow.isKeyWindow == false || mainRollbackWindow.isHidden == true {
+                    mainRollbackWindow.makeKeyAndVisible()
+                }
             } else {
                 UIApplication.shared.keyWindow?.makeKeyAndVisible()
             }
